@@ -6,6 +6,7 @@ export interface IStorage {
   getAllEvents(): Promise<Event[]>;
   getEventById(id: string): Promise<Event | undefined>;
   createEvent(event: InsertEvent): Promise<Event>;
+  deleteEvent(id: string): Promise<void>;
   updateEventRegistrationCount(eventId: string, increment: number): Promise<void>;
   
   // Registrations
@@ -168,6 +169,17 @@ export class MemStorage implements IStorage {
       this.registrations.delete(id);
       await this.updateEventRegistrationCount(registration.eventId, -1);
     }
+  }
+
+  async deleteEvent(id: string): Promise<void> {
+    // Delete all registrations for this event
+    const eventRegistrations = await this.getRegistrationsByEventId(id);
+    eventRegistrations.forEach(reg => {
+      this.registrations.delete(reg.id);
+    });
+    
+    // Delete the event
+    this.events.delete(id);
   }
 }
 

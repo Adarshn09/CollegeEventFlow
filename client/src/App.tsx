@@ -8,6 +8,7 @@ import BrowseEvents from "@/pages/BrowseEvents";
 import EventDetail from "@/pages/EventDetail";
 import MyEvents from "@/pages/MyEvents";
 import AdminEventForm from "@/pages/AdminEventForm";
+import AdminManageEvents from "@/pages/AdminManageEvents";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,7 +17,8 @@ function Router() {
       <Route path="/" component={BrowseEvents} />
       <Route path="/event/:id" component={EventDetail} />
       <Route path="/my-events" component={MyEvents} />
-      <Route path="/admin" component={AdminEventForm} />
+      <Route path="/admin" component={AdminManageEvents} />
+      <Route path="/admin/create" component={AdminEventForm} />
       <Route component={NotFound} />
     </Switch>
   );
